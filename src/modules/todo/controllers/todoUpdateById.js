@@ -5,16 +5,16 @@ export default async function todoUpdateById(req, res) {
   const name = req.body.name;
   const done = req.body.done;
   const shrink = req.body.shrink;
-  const priority = req.body.priority;
   const description = req.body.description;
+  const urgent = req.body.urgent;
 
   todoModel.update({ _id: id }, {
     $set: {
       name: name,
       description: description,
       done: done,
+      urgent:urgent,
       shrink: shrink,
-      priority: priority,
 
     },
   })

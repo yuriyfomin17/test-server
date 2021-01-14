@@ -9,9 +9,10 @@ export default async function todoCreate(req, res) {
   const name = req.body.name;
   const done = req.body.done;
   const shrink = req.body.shrink;
-  const priority = req.body.priority;
   const description = req.body.description;
   const column = req.body.column;
+  const urgent = req.body.urgent;
+
 
   const todo = new todoModel({
     _id,
@@ -19,7 +20,7 @@ export default async function todoCreate(req, res) {
     description: description,
     done: done,
     shrink: shrink,
-    priority: priority,
+    urgent: urgent
   });
 
   todo
