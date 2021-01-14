@@ -1,26 +1,50 @@
+import todoModel from '../todoModel';
+import orderModel from '../../todoOrder/orderModel';
 import mongoose from 'mongoose';
-import Todo from '../todoModel';
+
 
 export default async function todoCreate(req, res) {
-  const _id = new mongoose.Types.ObjectId();
 
-  const todo = new Todo({
+  const _id = new mongoose.Types.ObjectId();
+  const name = req.body.name;
+  const done = req.body.done;
+  const shrink = req.body.shrink;
+  const priority = req.body.priority;
+  const description = req.body.description;
+  const column = req.body.column;
+
+  const todo = new todoModel({
     _id,
-    name: req.body.name,
-    description: req.body.description,
-    index: req.body.index,
-    column: req.body.column,
-    priority: req.body.priority,
-    shrink: req.body.shrink,
-    done: req.body.done || false,
+    name: name,
+    description: description,
+    done: done,
+    shrink: shrink,
+    priority: priority,
   });
 
   todo
-    .save()
-    .then(() => {
-      res.status(201).json('Todo created');
+    .save().then(() => {
+    orderModel.update({ column: column }, {
+      $push: {
+        order: {
+          $each: [{ _id: _id }],
+        },
+      },
+    }).then(doc => {
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res.status(404).json('No todo for provided id');
+      }
     })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+  });
+
+
 }

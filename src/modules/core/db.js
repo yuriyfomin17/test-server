@@ -6,10 +6,7 @@ export default function mongoConnection() {
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@${
       process.env.MONGO_HOST
     }/${process.env.MONGO_DB_NAME}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    },
+    { useNewUrlParser: true },
   );
 
   mongoose.connection.on('error', () => {

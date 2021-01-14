@@ -20,5 +20,5 @@ routes(app);
 errorHandling(app);
 
 app.listen(PORT, () => {
-  console.log(`Node cluster worker ${process.pid}: listening on port ${PORT}`);
+  console.log(`Node cluster worker ${process.pid}: listening on http://localhost:${PORT}/info`);
 });

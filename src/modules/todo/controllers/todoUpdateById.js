@@ -1,9 +1,23 @@
-import Todo from '../todoModel';
+import todoModel from '../todoModel';
 
 export default async function todoUpdateById(req, res) {
-  const id = req.params.todoId;
-  console.log('BODY', req.body);
-  Todo.update({ _id: id }, { $set: req.body })
+  const id = req.body.id;
+  const name = req.body.name;
+  const done = req.body.done;
+  const shrink = req.body.shrink;
+  const priority = req.body.priority;
+  const description = req.body.description;
+
+  todoModel.update({ _id: id }, {
+    $set: {
+      name: name,
+      description: description,
+      done: done,
+      shrink: shrink,
+      priority: priority,
+
+    },
+  })
     .exec()
     .then(doc => {
       if (doc.n) {

@@ -1,19 +1,14 @@
 import { Router } from 'express';
 
-import todoGetAll from './controllers/todoGetAll';
-import todoGetById from './controllers/todoGetById';
 import todoUpdateById from './controllers/todoUpdateById';
-import todoCreate from './controllers/todoCreate';
 import todoDeleteById from './controllers/todoDeleteById';
-import todoChangeStatusById from './controllers/todoChangeStatusById';
+import todoCreate from './controllers/todoCreate';
+import todoGetAll from './controllers/todoGetAll';
 
 const router = Router();
-
-router.get('/', todoGetAll);
-router.post('/', todoCreate);
-router.get('/:todoId', todoGetById);
-router.patch('/:todoId', todoUpdateById);
-router.put('/:todoId', todoChangeStatusById);
-router.delete('/:todoId', todoDeleteById);
+router.post('/create', todoCreate);
+router.get('/getAll', todoGetAll);
+router.patch('/update', todoUpdateById);
+router.delete('/delete', todoDeleteById);
 
 export default router;

@@ -1,20 +1,27 @@
-import Todo from '../todoModel';
-
+import todoModel from '../todoModel';
+import orderModel from '../../todoOrder/orderModel';
+import mongoose from 'mongoose';
 const todoDeleteById = (req, res) => {
-  const id = req.params.todoId;
-  Todo.remove({ _id: id })
-    .exec()
-    .then(doc => {
-      if (doc.n) {
-        res.status(200).json('Todo deleted');
-      } else {
-        res.status(400).json('Todo not found');
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  const column = req.body.column;
+  const id = req.body.id;
+
+  todoModel.deleteOne({ _id: id })
+    .then(() => {
+      orderModel.update({ column: column }, { $pull: { "order": { _id: mongoose.Types.ObjectId(id) } } }).then(doc => {
+        if (doc) {
+          res.status(200).json('Success')
+        } else {
+          res.status(404).json('No todo for provided id');
+        }
+      }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+    }).catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+
 };
 
 export default todoDeleteById;
