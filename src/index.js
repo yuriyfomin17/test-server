@@ -7,7 +7,7 @@ import routes from './modules/core/routes';
 import cors from './modules/core/cors';
 import errorHandling from './modules/core/errorHandling';
 
-const PORT =5000;
+const PORT =+process.env.PORT ||5000;
 const app = express();
 
 app.disable('x-powered-by'); // DISABLE EXPRESS SIGNATURE
