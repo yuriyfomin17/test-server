@@ -4,7 +4,7 @@
   "description": "Todo server",
   "main": "index.js",
   "engines": {
-    "node": "12.18.2"
+    "node": "9.10.0"
   },
   "scripts": {
     "heroku-postbuild": "npm install",
@@ -14,10 +14,15 @@
     "dev": "nodemon --inspect -r dotenv/config -r babel-register src"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/bogutski/todo-server.git"
   },
-  "author": "Yuriy-Fomin",
+  "author": "",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bogutski/todo-server/issues"
+  },
+  "homepage": "https://github.com/bogutski/todo-server#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^5.0.0-alpha.6",
